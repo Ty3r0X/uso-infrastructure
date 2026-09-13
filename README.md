@@ -9,8 +9,7 @@ This repository contains the build system used for generating USO VMs for labs a
 Install the following dependencies on your machine:
 - `packer`: https://developer.hashicorp.com/packer/install#linux
 - `ansible`: https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-specific-operating-systems
-- `virtualbox` (for VirtualBox builds)
-- `qemu` (for QEMU/KVM builds)
+- `virtualbox`
 
 Packer requires the following plugins to be installed:
 
@@ -19,21 +18,7 @@ Packer requires the following plugins to be installed:
 packer init ubuntu-26-04-1-vbox-amd64.pkr.hcl
 # Or install them manually
 packer plugins install github.com/hashicorp/virtualbox
-packer plugins install github.com/hashicorp/qemu
 packer plugins install github.com/hashicorp/ansible
-```
-
-#### VirtualBox Host-Only Network
-
-VirtualBox builds serve the `cloud-init` autoinstall files over a host-only network interface (`vboxnet0` at `192.168.56.1/24`).
-
-This interface is configured automatically when running `make vbox-amd64` via `scripts/vbox/setup_vbox_network.sh`. If needed, you can also configure it manually:
-
-```bash
-./scripts/vbox/setup_vbox_network.sh
-# or manually via VBoxManage:
-VBoxManage hostonlyif create
-VBoxManage hostonlyif ipconfig vboxnet0 --ip 192.168.56.1 --netmask 255.255.255.0
 ```
 
 ### Technical Details
